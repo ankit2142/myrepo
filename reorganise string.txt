@@ -1,0 +1,41 @@
+   string reorganizeString(string S)
+    {   int i;
+        int n=s.size();
+        map<char,int>m;
+        for(i=0;i<n;i++)
+        {
+            m[s[i]]++;
+        }
+        priority_queue<pair<int,char>>pq;
+        for(auto i : m)
+        {
+            pq.push({i.second,i.first});
+        }
+        string str = "";
+        while(pq.size()>=2)
+        {
+            auto fir = pq.top();
+            pq.pop();
+            auto sec = pq.top();
+            pq.pop();
+            str+=fir.second;
+            str+=sec.second;
+             fir.first--;
+            if(fir.first>0) 
+            pq.push({fir.first,fir.second});
+            sec.first--;
+            if(sec.first>0) 
+            pq.push({sec.first,sec.second});
+        }
+        if(pq.size()==1)
+        {
+            auto fir = pq.top();
+            pq.pop();
+            fir.first--;
+            if(fir.first>0) 
+            return "";
+            str+=fir.second;
+        }
+        
+        return str;
+    }
